@@ -1,6 +1,8 @@
 package com.davixmns.projetospring.resources;
 
+import com.davixmns.projetospring.entities.Order;
 import com.davixmns.projetospring.entities.User;
+import com.davixmns.projetospring.services.OrderService;
 import com.davixmns.projetospring.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,19 +15,19 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/orders")
-public class UserResource {
+public class OrderResource {
     @Autowired
-    private UserService service;
+    private OrderService service;
 
     @GetMapping
-    public ResponseEntity<List<User>> findAll(){
-        List<User> list = service.findAll();
+    public ResponseEntity<List<Order>> findAll(){
+        List<Order> list = service.findAll();
         return ResponseEntity.ok().body(list);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity <User> findById(@PathVariable Long id){
-        User obj = service.findById(id);
+    public ResponseEntity <Order> findById(@PathVariable Long id){
+        Order obj = service.findById(id);
         return ResponseEntity.ok().body(obj);
     }
 }
