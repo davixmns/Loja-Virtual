@@ -1,7 +1,7 @@
 package com.davixmns.projetospring.entities;
 
+import com.davixmns.projetospring.entities.enums.OrderStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -15,6 +15,8 @@ public class Order implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private Integer orderStatus;
+
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
     private Instant instant;
 
@@ -22,9 +24,10 @@ public class Order implements Serializable {
     @JoinColumn(name = "client_id")
     private User client;
 
-    public Order(Long id, Instant instant, User client) {
+    public Order(Long id, Instant instant, OrderStatus status, User client) {
         this.id = id;
         this.instant = instant;
+        setOrderStatus(status);
         this.client = client;
     }
 
@@ -53,6 +56,14 @@ public class Order implements Serializable {
 
     public void setClient(User client) {
         this.client = client;
+    }
+
+    public OrderStatus getOrderStatus() {
+        return OrderStatus.valueOf(orderStatus);
+    }
+
+    public void setOrderStatus(OrderStatus status) {
+        this.orderStatus = status.getCode();
     }
 
     @Override
