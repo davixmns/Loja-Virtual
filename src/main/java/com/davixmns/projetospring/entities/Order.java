@@ -42,6 +42,13 @@ public class Order implements Serializable {
     public Order() {
     }
 
+    public Double getTotal(){
+        return items.stream()
+                .mapToDouble(OrderItem::getSubTotal)
+                .sum();
+    }
+
+
     public Set<OrderItem> getItems(){
         return items;
     }
